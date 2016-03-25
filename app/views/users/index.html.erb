@@ -1,0 +1,74 @@
+<% if flash[:errors] %>
+	<%= flash[:errors] %>
+<% end %>
+<form action="/users" method="post">
+	<fieldset>
+		<legend>Lender</legend>
+		<p>
+			<label>First Name: <input type="text" name="lender[first_name]"></label>
+		</p>
+		<p>
+			<label>Last Name: <input type="text" name="lender[last_name]"></label>
+		</p>
+		<p>
+			<label>Email: <input type="text" name="lender[email]"></label>
+		</p>
+		<p>
+			<label>Password: <input type="text" name="lender[password]"></label>
+		</p>
+		<p>
+			<label>Confirm Password: <input type="text" name="lender[password_confirmation]"></label>
+		</p>
+		<p>
+			<label>Money:
+				<input type="value" name="money">
+			</label>
+		</p>
+		<p>
+			<input type="submit" value="Register">
+		</p>
+		<%= token_tag nil %>
+		<input type="hidden" name="type" value="lender">
+	</fieldset>
+</form>
+<a href="/users/new">Already a Member</a>
+<form action="/users" method="post">
+	<fieldset>
+		<legend>Borrower</legend>
+		<p>
+			<label>First Name: <input type="text" name="borrower[first_name]"></label>
+		</p>
+		<p>
+			<label>Last Name: <input type="text" name="borrower[last_name]"></label>
+		</p>
+		<p>
+			<label>Email: <input type="text" name="borrower[email]"></label>
+		</p>
+		<p>
+			<label>Password: <input type="text" name="borrower[password]"></label>
+		</p>
+		<p>
+			<label>Confirm Password: <input type="text" name="borrower[password_confirmation]"></label>
+		</p>
+		<p>
+			<label>Need Money For:<input type="text" name="need_money_for"></label>
+		</p>
+		<p>
+		<p>Description:</p>
+			<textarea name="description">
+				
+			</textarea>
+		</p>
+		<p>
+			<label>Amount Needed:
+				<input type="value" name="amount_needed">
+			</label>
+		</p>
+		<p>
+			<input type="submit" value="Register">
+		</p>
+		<%= token_tag nil %>
+		<input type="hidden" name="type" value="borrower">
+	</fieldset>
+</form>
+<a href="/users/new">Already a Member</a>

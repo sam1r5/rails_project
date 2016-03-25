@@ -1,0 +1,33 @@
+<style type="text/css">
+	table {
+		width: 80%;
+		border: 1px solid black;
+	}
+	th, td{ 	
+		text-align: center;
+		border: 1px solid black;
+	}
+</style> 
+<a href="/sessions/<%= @user.id %>" data-method="delete">Log Out</a>
+<p>Name: <%= @user.first_name %></p>
+<p>Amount Needed: <%= @borrower.amount_needed %></p>
+<p>Amount Raised: <%= Lending.where(borrower_id: @borrower.id).sum(:amount_lent) %></p>
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Email</td>
+			<td>Amount Lent</td>
+		</tr>
+	</thead>
+	<tbody>
+	<% @lent_users.each do |u| %>
+		<tr>
+			<td><%= u.lender.user.first_name + " " + u.lender.user.last_name %></td>
+			<td><%= u.lender.user.email %></td>
+			<td><%= Lending.where(lender_id: u.lender_id).sum(:amount_lent)%></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

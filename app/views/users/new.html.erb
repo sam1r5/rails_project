@@ -1,0 +1,16 @@
+<% if flash[:errors] %>
+	<%= flash[:errors] %>
+<% end %>
+<form action="/sessions" method="post">
+	<fieldset>
+		<legend>Login</legend>
+		<p>
+			<label>Email:<input type="text" name="user[email]"> </label>
+		</p>
+		<p>
+			<label>Password: <input type="text" name="user[password]"</label>
+		</p>
+		<input type="submit" value="Login">
+		<%= token_tag nil %>
+	</fieldset>
+</form>

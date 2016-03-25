@@ -1,0 +1,72 @@
+<style type="text/css">
+	table {
+		width: 80%;
+		border: 1px solid black;
+	}
+	th, td{ 	
+		text-align: center;
+		border: 1px solid black;
+	}
+</style>
+<a href="/sessions/<%= @user.id %>" data-method="delete">Log Out</a>
+<p>Name: <%= @user.first_name %></p>
+<p>Account_balance: <%= @lender.money %></p>
+
+<h3>List of people in need of help</h3>
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Need Money For</td>
+			<td>Reason for Loan</td>
+			<td>Amount Needed</td>
+			<td>Amount Raised</td>
+			<td>Action</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @borrowers.each do |b| %>
+			<tr>
+				<td><%= b.user.first_name + " " + b.user.last_name %></td>
+				<td><%= b.need_money_for %></td>
+				<td><%= b.description %></td>
+				<td><%= b.amount_needed %></td>
+				<td><%= Lending.where(borrower_id: b.id).sum(:amount_lent) %></td>
+				<td>
+					<form action="/lendings" method="post">
+						<input type="value" name="lend[amount_lent]">
+						<input type="submit" value="Lend">
+						<input type="hidden" name="lend[borrower_id]" value="<%= b.id %>">
+						<%= token_tag nil %>
+					</form>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>List of People you Lent Money to</h3>
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Need Money for</td>
+			<td>Reason for Loan</td>
+			<td>Amount Needed</td>
+			<td>Amount Raised</td>
+			<td>Amount Lent</td>
+		</tr>
+	</thead>
+	<tbody>
+	<% @borrowers_lent.each do |l| %>
+		<tr>
+			<td><%= l.borrower.user.first_name + " " + l.borrower.user.last_name %></td>
+			<td><%= l.borrower.need_money_for %></td>
+			<td><%= l.borrower.description %></td>
+			<td><%= l.borrower.amount_needed %></td>
+			<td><%=  @borrowers_lent.where(borrower_id: l.borrower.id).sum(:amount_lent) %></td>
+			<td><%= l.amount_lent %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
